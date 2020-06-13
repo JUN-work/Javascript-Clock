@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <link rel="stylesheet" type="text/css" href="clock.css">
+  <meta charset="UTF-8">
+  <title>アナログ時計</title>
+</head>
+<body>
+  <div class="clock">
+    <div class="hour">
+        <div class="hr" id="hr"></div>
+    </div>
+    <div class="min">
+        <div class="mn" id="mn"></div>
+    </div>
+    <div class="sec">
+        <div class="sc" id="sc"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+  const hour = document.querySelector("#hr");
+  const minute = document.querySelector("#mn");
+  const second = document.querySelector("#sc");
+
+  setInterval(() => {
+    const date = new Date();
+    // 秒針:1周を60で割って、1秒あたりの角度を計算する
+    const s = (360 / 60) * date.getSeconds();
+    // 分針:1周を60で割った1分あたりの角度＋1分あたりの角度を60で割った1秒あたりの角度
+    const m = (360 / 60) * date.getMinutes() + (s / 60);
+    // 時針:1周を24で割った1時間あたりの角度＋1時間あたりの角度を60で割った1分あたりの角度
+    const h = (360 / 24) * date.getHours() + (m / 24);
+
+    second.style.transform = `rotate(${s}deg)`;
+    minute.style.transform = `rotate(${m}deg)`;
+    hour.style.transform = `rotate(${h}deg)`;
+  }, 1000);
+  </script>
+</body>
+</html>
